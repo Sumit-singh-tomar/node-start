@@ -2,32 +2,18 @@ const http = require("http")
 const express = require("express")
 const app = express()
 const bodyParser = require('body-parser')
-
+const adminRouter = require('./routes/admin')
+const dataRouter = require('./routes/shop')
 // adding middlware
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use('/admin',adminRouter)
+app.use('/shop', dataRouter)
 
-app.use('/add-product', (req, res, next) => {
-    console.log('middleware-2')
-    res.send("<form action='/user' method='POST'><input type='text' name='title' /> <input type='text' name='size' /> <button type='submit'>Send</button> </form>")
+app.use('/', (req, res) => {
+    res.status(404).send('page not found!')
 })
 
-app.use('/user', (req, res, next) => {
-    console.log(req.body)
-    res.redirect("/add-product")
-})
-
-app.use('/', (req, res, next) => {
-    console.log('middleware-1')
-    res.send("<h1>Hello from middleware-1</h1>")
-})
-
-
-// app.use((req, res, next) => {
-//     console.log('middleware-3')
-//     res.send({key1:'value1'})
-// })
-
-// const server = http.createServer(app)
-
-app.listen(4000)
+const server = http.createServer(app)
+server.listen(4000)
+//app.listen(4000) // it create internally createServer 
