@@ -1,8 +1,8 @@
 const viewPath = require('../util/path')
 const ProductClass = require('../models/product')
 
-exports.shopPage =  (req, res) => {
-    var a = ProductClass.fetchAll()
-    console.log(a)
-    res.sendFile(viewPath('shop.html'))
+exports.shopPage = (req, res) => {
+    ProductClass.fetchAll((data) => {
+        res.render('shop', { data: data })
+    })
 }

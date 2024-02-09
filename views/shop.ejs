@@ -12,6 +12,11 @@
     <header>
         <nav>
             <a href="/admin/add-product">Add-Product</a>
+            <div>
+                <% data.map((item) =>{ %>
+                    <div><%= JSON.stringify(item)%></div>
+                <% }) %>
+            </div>
         </nav>
     </header>
 </body>
