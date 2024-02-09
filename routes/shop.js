@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const shopController = require('../Controllers/shop')
 
-router.get('/',(req,res)=>{
-    res.send('data page')
-})
+router.get('/', shopController.shopPage)
 
 module.exports = router;
