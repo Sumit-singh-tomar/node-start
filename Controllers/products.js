@@ -7,8 +7,8 @@ exports.addProductPage = (req, res) => {
 }
 
 exports.addProduct = (req, res) => {
-    const prod1 = new ProductClass(req.body.title)
-    prod1.save(()=>{
+    ProductClass.save(req.body.title).then((rows)=>{
+        console.log(rows)
         res.redirect("/shop")
     })
 }

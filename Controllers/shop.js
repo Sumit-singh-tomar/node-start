@@ -3,8 +3,9 @@ const ProductClass = require('../models/product')
 const CartModel = require('../models/cart')
 
 exports.shopPage = (req, res) => {
-    ProductClass.fetchAll((data) => {
-        res.render('shop', { data: data })
+    ProductClass.fetchAll()
+    .then((rows) => { 
+        res.render('shop', { data: rows[0] }) 
     })
 }
 

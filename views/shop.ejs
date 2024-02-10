@@ -14,13 +14,13 @@
             <a href="/admin/add-product">Add-Product</a>
             <div>
                 <% data.map((item)=>{ %>
-                    <% var data=`${Object.keys(item).shift()} : ${Object.values(item).shift()}` %>
+                    <% var data=`${Object.keys(item).pop()} : ${Object.values(item).pop()}` %>
 
                         <div>
                             <%= data %>
-                                <button><a href="/shop/buy/<%= item.productId%>">Add to Cart</a></button>
-                                <button><a href="/edit/editproduct?pid=<%= item.productId%>">Edit</a></button>
-                                <button><a href="/edit/deleteproduct?pid=<%= item.productId%>">Delete</a></button>
+                                <button><a href="/shop/buy/<%= item.id%>">Add to Cart</a></button>
+                                <button><a href="/edit/editproduct?pid=<%= item.id%>">Edit</a></button>
+                                <button><a href="/edit/deleteproduct?pid=<%= item.id%>">Delete</a></button>
                         </div>
                         <% }) %>
             </div>
