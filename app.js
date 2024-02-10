@@ -5,6 +5,8 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const adminRouter = require('./routes/admin')
 const dataRouter = require('./routes/shop')
+const editProductRouter = require('./routes/edit')
+const cartRouter = require('./routes/cart')
 
 // adding middlware
 
@@ -15,6 +17,8 @@ app.use(express.static(path.join(__dirname, "public")))
 
 app.use('/admin', adminRouter)
 app.use('/shop', dataRouter)
+app.use('/edit', editProductRouter)
+app.use('/cart', cartRouter)
 
 app.use('/', (req, res) => {
     res.status(404).send('page not found!')

@@ -8,6 +8,7 @@ exports.addProductPage = (req, res) => {
 
 exports.addProduct = (req, res) => {
     const prod1 = new ProductClass(req.body.title)
-    prod1.save()
-    res.redirect("/admin/add-product")
+    prod1.save(()=>{
+        res.redirect("/shop")
+    })
 }

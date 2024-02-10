@@ -5,9 +5,10 @@ const builtPath = path.join(path.dirname(require.main.filename), "data", "data.t
 module.exports = class product {
     constructor(item) {
         this.title = item
+        this.productId = Math.round(Math.random() * 1000)
     }
 
-    save() {
+    save(callBackFn) {
         let products = []
 
         fs.readFile(builtPath, (err, data) => {
@@ -16,19 +17,79 @@ module.exports = class product {
             }
             products.push(this)
             fs.writeFile(builtPath, JSON.stringify(products), (e) => {
+                callBackFn()
                 console.log(e)
             })
+        })
+    }
+
+    static saveModified(pid, title, callBackFn) {
+        fs.readFile(builtPath, (err, data) => {
+            if (!err) {
+                let index = ''
+                data = JSON.parse(data)
+                data.map((item, i) => {
+                    if (item.productId == pid) {
+                        index = i;
+                    }
+                })
+                let arr = [...data]
+                arr[index] = { title: title, productId: pid }
+
+                fs.writeFile(builtPath, JSON.stringify(arr), (e) => {
+                    callBackFn()
+                    console.log(e)
+                })
+            }
+        })
+    }
+
+    static deleteProduct(pid, callBackFn) {
+        fs.readFile(builtPath, (err, data) => {
+            if (!err) {
+                let index = ''
+                data = JSON.parse(data)
+                data.map((item, i) => {
+                    if (item.productId == pid) {
+                        index = i;
+                    }
+                })
+                let arr = [...data]
+                arr.splice(index, 1)
+
+                fs.writeFile(builtPath, JSON.stringify(arr), (e) => {
+                    callBackFn()
+                    console.log(e)
+                })
+            }
         })
     }
 
     static fetchAll(callBackFn) {
         fs.readFile(builtPath, (err, data) => {
             if (err) {
-                return callBackFn([])
+                callBackFn([])
             }
             else {
-                return callBackFn(JSON.parse(data))
+                callBackFn(JSON.parse(data))
             }
         })
     }
+
+    static findProductById(pid, callBackFn) {
+        fs.readFile(builtPath, (err, data) => {
+            if (err) {
+                callBackFn([])
+            }
+            else {
+                data = JSON.parse(data)
+                data.map((item) => {
+                    if (item.productId == pid) {
+                        callBackFn(item)
+                    }
+                })
+            }
+        })
+    }
+
 }

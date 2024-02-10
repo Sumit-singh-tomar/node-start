@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shop page</title>
-    <link rel="stylesheet" href="/shop.css">
+    <link rel="stylesheet" href="/css/shop.css">
 </head>
 
 <body>
@@ -13,12 +13,17 @@
         <nav>
             <a href="/admin/add-product">Add-Product</a>
             <div>
-                <% data.map((item) =>{ %>
-                    <div><%= JSON.stringify(item)%></div>
-                <% }) %>
+                <% data.map((item)=>{ %>
+                    <% var data=`${Object.keys(item).shift()} : ${Object.values(item).shift()}` %>
+
+                        <div>
+                            <%= data %>
+                                <button><a href="/shop/buy/<%= item.productId%>">Add to Cart</a></button>
+                                <button><a href="/edit/editproduct?pid=<%= item.productId%>">Edit</a></button>
+                                <button><a href="/edit/deleteproduct?pid=<%= item.productId%>">Delete</a></button>
+                        </div>
+                        <% }) %>
             </div>
         </nav>
     </header>
-</body>
-
-</html>
+</body> 
