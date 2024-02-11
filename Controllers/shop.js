@@ -1,4 +1,3 @@
-const viewPath = require('../util/path')
 const ProductClass = require('../models/product')
 const CartModel = require('../models/cart')
 

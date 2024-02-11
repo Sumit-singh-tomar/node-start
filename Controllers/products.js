@@ -8,7 +8,6 @@ exports.addProductPage = (req, res) => {
 
 exports.addProduct = (req, res) => {
     ProductClass.save(req.body.title).then((rows)=>{
-        console.log(rows)
         res.redirect("/shop")
     })
 }

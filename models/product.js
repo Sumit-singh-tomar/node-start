@@ -1,14 +1,6 @@
-const fs = require('fs')
-const path = require('path')
-const builtPath = path.join(path.dirname(require.main.filename), "data", "data.txt")
 const sqldb = require('../connection/database')
 
 module.exports = class product {
-    constructor(item) {
-        this.title = item
-        this.productId = Math.round(Math.random() * 1000)
-    }
-
     static save(title) {
         return sqldb.execute("INSERT INTO product (title) VALUES (?)", [title])
     }
